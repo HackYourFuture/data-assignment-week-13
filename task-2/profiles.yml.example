@@ -1,0 +1,12 @@
+# Copy to profiles.yml (git-ignored) and export the env vars from ../.env.example
+nyc_taxi:
+  target: databricks
+  outputs:
+    databricks:
+      type: databricks
+      catalog: hyf
+      schema: "{{ env_var('DBT_SCHEMA') }}"
+      host: "{{ env_var('DBRICKS_HOST') }}"
+      http_path: "{{ env_var('DBRICKS_HTTP_PATH') }}"
+      token: "{{ env_var('DBRICKS_TOKEN') }}"
+      threads: 4
