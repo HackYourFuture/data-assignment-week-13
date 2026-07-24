@@ -86,7 +86,7 @@ else
   fail "models/marts/fct_trips.sql (or similar) not found"
 fi
 writeup="$(sed -E 's/<!--.*-->//g' "$TASK2/WRITEUP.md" 2>/dev/null || true)"
-writeup_student="$(echo "$writeup" | grep -vE '^#|^\*\*|^[-*] |^<!--' || true)"
+writeup_student="$(echo "$writeup" | grep -vE '^#|^\*\*|^[-*] |^<!--|`___`|Fill in after|First build|Second build' || true)"
 if [[ $(echo "$writeup_student" | wc -c | tr -d ' ') -lt 80 ]]; then
   fail "WRITEUP needs your timings and explanation (not just the template headers)"
 else
@@ -122,6 +122,11 @@ fi
 sched="$(sed -E 's/<!--.*-->//g' "$TASK3/SCHEDULING.md" 2>/dev/null || true)"
 sched_student="$(echo "$sched" | grep -vE '^#|^\*\*|^[-*] |^<!--|^[0-9]+\. |`___`|When would you choose|Write two' || true)"
 if [[ $(echo "$sched_student" | wc -c | tr -d ' ') -ge 50 ]]; then
+  if echo "$sched" | grep -qiE 'https?://[a-zA-Z0-9.-]+\.azuredatabricks\.net.*job.*run'; then
+    pass "SCHEDULING.md contains Databricks Job Run URL"
+  else
+    warn "SCHEDULING.md missing Databricks Job Run URL (paste URL from address bar)"
+  fi
   if echo "$sched_student" | grep -qiE 'airflow|jobs|schedule|orchestrat'; then
     l4=$((l4 + 7))
     pass "SCHEDULING.md contains orchestration comparison"
