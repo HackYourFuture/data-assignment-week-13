@@ -6,13 +6,14 @@ Full instructions live in the curriculum: [Week 13 Assignment](https://github.co
 
 ## Where to start
 
-| Folder | What to submit | Points (autograder) |
+| Folder / File | What to submit | Points (autograder) |
 | --- | --- | --- |
 | `task-1/` | PySpark notebook (`show()` on aggregated results, PySpark-vs-dbt note) | 25 |
-| `task-2/` | Ported dbt project + `WRITEUP.md` (timings + incremental explanation) | 30 |
+| `task-2/` | Ported dbt project + `WRITEUP.md` (timings + incremental explanation + `DESCRIBE HISTORY`) | 30 |
 | `task-3/` | Git-backed Databricks Job + screenshots + `SCHEDULING.md` (Jobs vs Airflow) | 15 |
-| Required files | Presence of all required files across `task-1/`, `task-2/`, and `task-3/` | 15 |
-| Secrets hygiene | No committed secrets (`profiles.yml`, `.env`, tokens) | 15 (blocker if violated) |
+| `AI_ASSIST.md` | Documented LLM usage (prompt, tool, kept/discarded rationale) | 15 |
+| Required files | Presence of all required files across `task-1/`, `task-2/`, `task-3/`, and `AI_ASSIST.md` | 15 |
+| Secrets hygiene | No committed secrets (`profiles.yml`, `.env`, tokens) | Blocker if violated |
 
 **Passing score:** 60/100 on the autograder. Your teacher also reviews quality against the rubric (incremental config, `>` boundary, tool-choice writing, Job configuration).
 
@@ -26,11 +27,12 @@ data-assignment-week-13/
 │   ├── dbt_project.yml              # your ported Week 10 project
 │   ├── models/                      # your dbt models
 │   ├── profiles.yml.example
-│   └── WRITEUP.md                   # incremental build write-up
+│   └── WRITEUP.md                   # incremental build write-up + DESCRIBE HISTORY
 ├── task-3/                          # Git-backed Job scheduling
-│   ├── SCHEDULING.md                # Jobs vs Airflow write-up
+│   ├── SCHEDULING.md                # Jobs vs Airflow write-up + Job Run URL
 │   └── screenshots/                 # Job config, green run, paused trigger
 ├── .env.example
+├── AI_ASSIST.md                     # LLM interaction log
 └── README.md
 ```
 
@@ -57,11 +59,12 @@ cat .hyf/score.json
 
 | Score | What the grader checks |
 | --- | --- |
-| 15 | Required files present (`task-1` notebook, `task-2/dbt_project.yml`, `WRITEUP.md`, `SCHEDULING.md`) |
+| 15 | Required files present (`task-1` notebook, `task-2/dbt_project.yml`, `WRITEUP.md`, `SCHEDULING.md`, `AI_ASSIST.md`) |
 | 25 | Task 1 notebook mentions `show` and borough/payment_type work |
 | 30 | Task 2 has incremental config (`materialized='incremental'`, `merge`, `unique_key`) and a filled `WRITEUP.md` |
-| 15 | Task 3 has screenshots in `task-3/screenshots/` and a filled `SCHEDULING.md` |
-| 15 | Secrets hygiene (no committed `.env` / `profiles.yml` / `dapi` tokens) |
+| 15 | Task 3 has screenshots in `task-3/screenshots/`, Job Run URL, and a filled `SCHEDULING.md` |
+| 15 | `AI_ASSIST.md` contains documented prompt and rationale |
+| Pass | Secrets hygiene (no committed `.env` / `profiles.yml` / `dapi` tokens) |
 
 Governance and streaming bonuses are teacher-reviewed only; they do not affect the autograder score.
 

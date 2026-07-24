@@ -53,6 +53,7 @@ if [[ -n "$nb" ]]; then pass "task-1 notebook: $(basename "$nb")"; else fail "ta
 if [[ -f "$TASK2/dbt_project.yml" ]]; then pass "task-2/dbt_project.yml"; else fail "task-2/dbt_project.yml missing"; missing=$((missing + 1)); fi
 if file_has_content "$TASK2/WRITEUP.md"; then pass "task-2/WRITEUP.md"; else fail "task-2/WRITEUP.md empty or missing"; missing=$((missing + 1)); fi
 if file_has_content "$TASK3/SCHEDULING.md"; then pass "task-3/SCHEDULING.md"; else fail "task-3/SCHEDULING.md empty or missing"; missing=$((missing + 1)); fi
+if file_has_content "$REPO_ROOT/AI_ASSIST.md"; then pass "AI_ASSIST.md"; else fail "AI_ASSIST.md empty or missing"; missing=$((missing + 1)); fi
 if [[ "$missing" -eq 0 ]]; then l1=15; fi
 score=$((score + l1))
 pass "Level 1: required files ($l1/15 pts)"
@@ -139,16 +140,24 @@ fi
 score=$((score + l4))
 pass "Level 4: Task 3 Job Scheduling ($l4/15 pts)"
 
-# ── Level 5 (15 pts): secrets hygiene ──────────────────────────────────────
+# ── Level 5 (15 pts): AI_ASSIST & secrets hygiene ──────────────────────────
 l5=15
+ai_body="$(grep -vE '^#|^\*\*|^[-*] |^<!--|`___`|Tool used|Prompt sent|Output provided|What I kept|Record at least|Ensure no personal' "$REPO_ROOT/AI_ASSIST.md" 2>/dev/null || true)"
+if [[ $(echo "$ai_body" | wc -c | tr -d ' ') -ge 30 ]]; then
+  pass "AI_ASSIST.md contains documented AI interaction"
+else
+  l5=$((l5 - 5))
+  warn "AI_ASSIST.md needs your documented prompt and rationale"
+fi
+
 if [[ -f "$REPO_ROOT/.gitignore" ]] && grep -qE '^\.env$|^profiles\.yml$' "$REPO_ROOT/.gitignore"; then
   pass ".gitignore excludes .env and profiles.yml"
 else
-  l5=$((l5 - 8)); fail ".gitignore should exclude .env and profiles.yml"
+  l5=$((l5 - 5)); fail ".gitignore should exclude .env and profiles.yml"
 fi
-if [[ -f "$TASK2/profiles.yml.example" ]]; then pass "profiles.yml.example present"; else l5=$((l5 - 7)); fail "task-2/profiles.yml.example missing"; fi
+if [[ -f "$TASK2/profiles.yml.example" ]]; then pass "profiles.yml.example present"; else l5=$((l5 - 5)); fail "task-2/profiles.yml.example missing"; fi
 score=$((score + l5))
-pass "Level 5: secrets hygiene ($l5/15 pts)"
+pass "Level 5: AI_ASSIST & secrets hygiene ($l5/15 pts)"
 
 if [[ "$score" -ge "$PASSING" ]]; then pass_flag=true; else pass_flag=false; fi
 print_results "Databricks Lab Autograder"
