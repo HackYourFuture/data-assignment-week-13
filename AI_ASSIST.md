@@ -1,16 +1,12 @@
 # AI Usage Log
 
-Record at least one point where you used an AI coding assistant (ChatGPT, Claude, Cursor, GitHub Copilot, Gemini, etc.) during this assignment.
-
 ## Interaction 1
 
-- **Tool used:** (e.g. ChatGPT / Cursor / Claude)
-- **Task / Problem:** (e.g. debugging dbt connection profile / writing PySpark join / configuring Job trigger)
+- **Tool used:** Cursor
+- **Task / Problem:** SMOKE TEST — debugging dbt profiles.yml env_var syntax for Databricks
 - **Prompt sent:**
-  > `___`
+  > How do I set host and token via env_var in a dbt-databricks profiles.yml?
 - **Output provided by AI:**
-  > `___`
+  > Suggested `host: "{{ env_var('DBRICKS_HOST') }}"` and `token: "{{ env_var('DBRICKS_TOKEN') }}"`.
 - **What I kept, changed, or rejected, and why:**
-  > `___`
-
-*(Ensure no personal passwords, Databricks tokens, or unapproved credentials are included in prompts or logged outputs.)*
+  > Kept the env_var pattern; rejected putting a real token in the file. This file is a grader smoke-test fixture only.

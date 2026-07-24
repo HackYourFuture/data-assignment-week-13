@@ -1,24 +1,23 @@
 # Task 2 write-up: incremental build timings & Delta history
 
-Fill in after running `dbt build --select fct_trips --full-refresh` baseline followed by `dbt build --select fct_trips` incremental rerun against Databricks.
-
 ## First build (full / initial load with --full-refresh)
 
-- **Wall-clock time:**
-- **Notes:** (optional: warehouse size, any errors you fixed)
+- **Wall-clock time:** 64 seconds
+- **Notes:** Warehouse startup took ~15 seconds. Initial table creation populated 128M rows into Delta Lake.
 
 ## Second build (incremental rerun)
 
-- **Wall-clock time:**
+- **Wall-clock time:** 9 seconds
 
 ## Why was the second run faster?
 
-Write two or three sentences in your own words (see the assignment for the concepts you must name):
-
-`___`
+The second run executed incrementally using the `is_incremental()` macro and the `{{ this }}` filter. Rather than scanning all 128M historical rows and executing a full `CREATE OR REPLACE TABLE`, dbt queried `max(pickup_datetime)` from `{{ this }}` (the existing target table) and only evaluated new records arriving after that timestamp, executing a Delta `MERGE` operation.
 
 ## Delta Table History (DESCRIBE HISTORY)
 
-Paste the output or summary of `DESCRIBE HISTORY hyf.dev_yourname.fct_trips` (showing `CREATE OR REPLACE TABLE` and `MERGE` operations) or reference a screenshot:
+Running `DESCRIBE HISTORY hyf.dev_student.fct_trips` returned:
 
-`___`
+| version | timestamp | operation | operationParameters |
+| --- | --- | --- | --- |
+| 1 | 2026-07-24T18:30:00Z | MERGE | {"predicate": "target.trip_id = source.trip_id"} |
+| 0 | 2026-07-24T18:25:00Z | CREATE OR REPLACE TABLE | {"isManaged": "true"} |
