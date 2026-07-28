@@ -11,4 +11,4 @@ Add your Databricks notebook here.
 - Results displayed with `show()` on small aggregated DataFrames (not `collect()` on the raw table).
 - Two or three sentences on when you would choose PySpark versus dbt SQL.
 
-See the [Week 13 assignment](https://github.com/HackYourFuture/datatrack/blob/main/Data%20Track/Week%2013/week_13__7_assignment.md) for full requirements.
+See the [Week 13 assignment](https://www.notion.so/hackyourfuture/Assignment-2af50f64ffc98112b371c42a3f469749) for full requirements.
