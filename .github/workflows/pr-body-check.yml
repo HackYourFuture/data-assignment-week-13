@@ -6,11 +6,18 @@ name: PR body check
 # the REST API or `gh pr create --body "..."` (the path most AI tools take)
 # silently skips it. This check is the only thing that actually enforces it.
 #
+# Uses pull_request_target (in addition to pull_request) so fork PRs always run
+# the workflow from main. The job only reads github.event.pull_request.body —
+# it does not check out PR head code.
+#
 # Recovery is automatic: editing the PR description fires the `edited` event and
 # re-runs this check with the new body. No new commit or manual re-run needed.
 
 on:
   pull_request:
+    types: [opened, edited, reopened, synchronize]
+    branches: [main]
+  pull_request_target:
     types: [opened, edited, reopened, synchronize]
     branches: [main]
 
