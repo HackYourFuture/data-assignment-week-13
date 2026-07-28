@@ -31,6 +31,7 @@ data-assignment-week-13/
 ├── task-3/                          # Git-backed Job scheduling
 │   ├── SCHEDULING.md                # Jobs vs Airflow write-up + Job Run URL
 │   └── screenshots/                 # Job config, green run, paused trigger
+├── task-4/                          # optional bonuses only (create if needed)
 ├── .env.example
 ├── AI_ASSIST.md                     # LLM interaction log
 └── README.md
