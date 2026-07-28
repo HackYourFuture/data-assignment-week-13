@@ -2,7 +2,7 @@
 
 **Databricks Lab:** PySpark exploration, dbt incremental models on Delta Lake, and Git-backed Job scheduling.
 
-Full instructions live in the curriculum: [Week 13 Assignment](https://github.com/HackYourFuture/datatrack/blob/main/Data%20Track/Week%2013/week_13__7_assignment.md).
+Full instructions live in the curriculum: [Week 13 Assignment](https://www.notion.so/hackyourfuture/Assignment-2af50f64ffc98112b371c42a3f469749).
 
 ## Where to start
 
