@@ -1,6 +1,6 @@
 # Task 2: dbt on Databricks
 
-Copy your **Week 10 dbt project** into this folder (or start from the `week-13-databricks` branch of [nyc-taxi-dbt-reference](https://github.com/lassebenni/nyc-taxi-dbt-reference)).
+Copy your **Week 10 dbt project** into this folder (or start from the `week-13-ch-4-dbt` branch of [nyc-taxi-dbt-reference](https://github.com/lassebenni/nyc-taxi-dbt-reference)).
 
 **Required changes:**
 
